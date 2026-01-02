@@ -1,0 +1,18 @@
+server:
+  port: 8088
+
+spring:
+  application:
+    name: temporallab
+
+  temporal:
+    workers-auto-discovery:
+      packages:
+        - se.maxm.temporallab.temporal
+    start-workers: true
+    workers:
+      - task-queue: TASK_QUEUE_CLOSE_MEETING
+
+
+    connection:
+      target: local
