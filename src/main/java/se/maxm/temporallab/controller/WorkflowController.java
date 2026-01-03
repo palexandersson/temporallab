@@ -28,7 +28,7 @@ public class WorkflowController {
     }
 
     @PostMapping("/closemeeting/{meetingDetailsId}")
-    public void closeMeetingWorkflow(@PathVariable Long meetingDetailsId) {
+    public String closeMeetingWorkflow(@PathVariable Long meetingDetailsId) {
         final WorkflowOptions workflowOptions = WorkflowOptions.newBuilder()
                 .setTaskQueue(TASK_QUEUE_CLOSE_MEETING)
                 .setWorkflowId(meetingDetailsId.toString())
@@ -37,7 +37,7 @@ public class WorkflowController {
 
         CloseMeetingDetailWorkflow workflow = workflowClient.newWorkflowStub(CloseMeetingDetailWorkflow.class, workflowOptions);
         WorkflowExecution taskExecution = WorkflowClient.start(workflow::closeMeeting, meetingDetailsId);
-        System.out.println("Workflow started, id:" + taskExecution.getWorkflowId());
+        return "Workflow started, id:" + taskExecution.getWorkflowId();
     }
 
 }
